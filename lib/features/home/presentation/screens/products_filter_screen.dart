@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:grid_view/features/home/data/models/product_model.dart';
+import 'package:grid_view/features/home/presentation/widgets/product_card_widget.dart';
 
 class ProductsFilterScreen extends StatefulWidget {
   const ProductsFilterScreen({super.key});
@@ -13,13 +15,17 @@ class ProductsFilterScreen extends StatefulWidget {
 class _ProductsFilterScreenState extends State<ProductsFilterScreen> {
   final Dio dio = Dio();
   String myCategory = '';
-  Future<List<dynamic>?> getProductsByCategory() async {
+  Future<List<ProductModel>?> getProductsByCategory() async {
     try {
       final Response response = await dio.get(
         "https://dummyjson.com/products/category/$myCategory",
       );
       final Map<String, dynamic> data = response.data;
-      final List<dynamic> products = data['products'];
+      final List<ProductModel> products = [];
+      data['products'].forEach((item) {
+        ProductModel product = ProductModel.fromMap(item);
+        products.add(product);
+      });
       log("Products: $products");
 
       return products;
@@ -44,7 +50,7 @@ class _ProductsFilterScreenState extends State<ProductsFilterScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
-            final List<dynamic> products = snapshot.data!;
+            final List<ProductModel> products = snapshot.data!;
             return products.isEmpty
                 ? Center(
                     child: Text(
@@ -72,61 +78,7 @@ class _ProductsFilterScreenState extends State<ProductsFilterScreen> {
                             arguments: products[index],
                           );
                         },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(15),
-                                  ),
-                                  child: Image.network(
-                                    products![index]['thumbnail'],
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) => Center(
-                                          child: const Icon(Icons.error),
-                                        ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      products[index]['title'],
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      products[index]['price'].toString(),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.green,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      "Stock: ${products[index]['stock']}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        child: ProductCardWidget(product: products[index]),
                       );
                     },
                   );

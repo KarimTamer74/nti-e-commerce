@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:grid_view/features/home/data/models/product_model.dart';
 
-class ProductDetails extends StatelessWidget {
+class ProductDetails extends StatefulWidget {
   const ProductDetails({super.key});
 
+  @override
+  State<ProductDetails> createState() => _ProductDetailsState();
+}
+
+class _ProductDetailsState extends State<ProductDetails> {
+  bool isFav = false;
   @override
   Widget build(BuildContext context) {
     ProductModel product =
@@ -29,6 +35,8 @@ class ProductDetails extends StatelessWidget {
                 child: Image.network(
                   product.image,
                   width: double.infinity,
+                  fit: BoxFit.cover,
+                  height: 300,
                 ),
               ),
               Text(
@@ -77,20 +85,18 @@ class ProductDetails extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {},
-                      icon: const Icon(Icons.shopping_bag_outlined, size: 24),
+                      icon: const Icon(
+                        Icons.shopping_bag_outlined,
+                        size: 24,
+                        color: Colors.white,
+                      ),
                       label: const Text(
                         "Add to Cart",
                         style: TextStyle(
                           fontSize: 18,
+                          color: Colors.white,
                           fontWeight: FontWeight.w600,
                         ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 3,
                       ),
                     ),
                   ),
@@ -104,8 +110,16 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ),
                     child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.favorite_border, size: 26),
+                      onPressed: () {
+                        setState(() {
+                          isFav = !isFav;
+                        });
+                      },
+                      icon: Icon(
+                        isFav ? Icons.favorite : Icons.favorite_border,
+                        color: isFav ? Colors.red : Colors.grey,
+                        size: 26,
+                      ),
                       splashRadius: 28,
                     ),
                   ),

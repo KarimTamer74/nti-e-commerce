@@ -21,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(height: 30),
             Expanded(child: CategoriesSection()),
+            SizedBox(height: 20),
+
             Expanded(flex: 6, child: ProductsSection()),
             SizedBox(height: 20),
           ],

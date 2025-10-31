@@ -8,11 +8,11 @@ import 'package:grid_view/core/theme/app_theme_cubit.dart';
 import 'package:grid_view/core/theme/app_theme_data.dart';
 import 'package:grid_view/features/add_product/presentation/screens/add_product_screen.dart';
 import 'package:grid_view/features/auth/presentation/cubit/register_cubit/register_cubit.dart';
+import 'package:grid_view/features/auth/presentation/screens/login_screen.dart';
 import 'package:grid_view/features/auth/presentation/screens/register_screen.dart';
 import 'package:grid_view/features/home/presentation/screens/home_screen.dart';
 import 'package:grid_view/features/home/presentation/screens/product_details_screen.dart';
 import 'package:grid_view/features/home/presentation/screens/products_filter_screen.dart';
-import 'package:grid_view/features/main/presentation/screen/main_screen.dart';
 import 'package:grid_view/features/profile/presentation/screens/profile_screen.dart';
 import 'package:grid_view/generated/l10n.dart';
 
@@ -49,13 +49,13 @@ class MyApp extends StatelessWidget {
                 supportedLocales: S.delegate.supportedLocales,
                 locale: locale,
                 debugShowCheckedModeBanner: false,
-                themeMode: theme,
+                themeMode: ThemeMode.dark,
                 darkTheme: AppTheme.darkTheme,
                 theme: AppTheme.lightTheme,
                 title: 'Grid Shop',
                 initialRoute: '/',
                 routes: {
-                  '/': (_) => const MainScreen(),
+                  '/': (_) => const LoginScreen(),
                   '/sign-up': (_) => BlocProvider(
                     create: (context) => AuthCubit(),
                     child: const SignUpScreen(),
