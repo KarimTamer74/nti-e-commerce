@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grid_view/core/helper/app_shared_preferences.dart';
 
 class AppThemeCubit extends Cubit<ThemeMode> {
-  AppThemeCubit() : super(ThemeMode.system);
+  AppThemeCubit() : super(ThemeMode.dark);
   final AppPreferences _appPreferences = AppPreferences();
   bool? isDark = false;
   void getTheme() {

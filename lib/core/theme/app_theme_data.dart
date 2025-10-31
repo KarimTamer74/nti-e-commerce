@@ -50,6 +50,7 @@ class AppTheme {
       titleTextStyle: TextStyle(color: Colors.black),
       contentPadding: EdgeInsets.all(10),
     ),
+    iconTheme: IconThemeData(color: Colors.black),
   );
 
   static ThemeData get darkTheme => ThemeData(
@@ -64,6 +65,7 @@ class AppTheme {
       backgroundColor: Colors.black,
       centerTitle: true,
     ),
+    iconTheme: IconThemeData(color: Colors.white),
     textTheme: TextTheme(
       displayLarge: TextStyle(color: Colors.white),
       displayMedium: TextStyle(color: Colors.white),
@@ -90,7 +92,11 @@ class AppTheme {
       labelStyle: TextStyle(color: Colors.white),
       hintStyle: TextStyle(color: Colors.white),
       prefixIconColor: Colors.white,
-
+      errorStyle: TextStyle(color: Colors.red, fontSize: 14),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: BorderSide(color: Colors.black87),
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15),
       ),
