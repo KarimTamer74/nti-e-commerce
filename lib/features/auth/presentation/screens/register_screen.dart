@@ -142,7 +142,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               "Validated with email: ${_emailController.text}, password: ${_passwordController.text}, firstName: ${_firstNameController.text}, lastName: ${_lastNameController.text}",
                             );
                             await BlocProvider.of<AuthCubit>(context).signUp(
-                              
                               requestModel: RegisterRequestModel(
                                 firstName: _firstNameController.text,
                                 lastName: _lastNameController.text,
@@ -157,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          backgroundColor: Colors.black,
+                          // backgroundColor: Colors.black,
                         ),
                         child: Text(
                           state is RegisterLoadingState
