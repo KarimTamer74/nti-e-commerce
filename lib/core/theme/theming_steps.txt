@@ -1,0 +1,6 @@
+ **Theming
+ 1- Create app theme data class => (dark & light data theme)
+ 2- use class in MatrialApp()
+ 3- App Theme Cubit => ( change theme & save current theme & get current theme) 
+ 4- provide cubit in MatrialApp() & builder 
+ 5- create a switch widget
